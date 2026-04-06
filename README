@@ -1,0 +1,138 @@
+# 🎓 Cloud-Based College Event Registration System
+
+A simple web application that allows students to register for college events. Built as a **Capstone Project** for the *Google Cloud Digital Leader* course. The local prototype uses Flask + SQLite, designed to be migrated to Google Cloud Platform (GCP) serverless services.
+
+---
+
+## 📌 Project Overview
+
+The University needs a modern online registration system for events like Tech Fest, Cultural Events, and Workshops. Students fill out a simple web form, and their registration data is stored in a database.
+
+---
+
+## 🗂️ Project Structure
+
+```
+Cloud Project/
+├── app.py          # Flask backend (REST API)
+├── database.py     # SQLite database initialization
+├── index.html      # Frontend (HTML/CSS/JS)
+├── students.db     # SQLite database (auto-created on first run)
+└── README.md
+```
+
+---
+
+## ⚙️ Prerequisites
+
+Make sure you have the following installed:
+
+- [Python 3.x](https://www.python.org/downloads/)
+- pip (comes with Python)
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/cloud-event-registration.git
+cd cloud-event-registration
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install flask flask-cors
+```
+
+### 3. Run the Backend Server
+
+```bash
+python app.py
+```
+
+You should see:
+```
+* Running on http://127.0.0.1:5000
+```
+
+### 4. Open the Frontend
+
+Simply double-click `index.html` to open it in your browser.  
+> ⚠️ Keep the `python app.py` terminal running while using the app.
+
+---
+
+## 🌐 API Endpoints
+
+| Method | Endpoint     | Description                     |
+|--------|--------------|---------------------------------|
+| POST   | `/register`  | Register a new student          |
+| GET    | `/students`  | Get all registered students     |
+
+### POST `/register` — Request Body
+
+```json
+{
+  "name": "Rahul Sharma",
+  "email": "rahul@college.edu",
+  "phone": "9876543210",
+  "roll_number": "CS2023001",
+  "department": "Computer Science",
+  "year": "Second Year",
+  "event": "Tech Fest"
+}
+```
+
+---
+
+## 🖥️ Features
+
+- Student registration form with validation
+- Stores data in a local SQLite database
+- Live registrations table with auto-refresh
+- Success/error alerts after form submission
+- Clean, responsive UI
+
+---
+
+## ☁️ Google Cloud Migration Plan
+
+This local prototype is designed to be migrated to GCP with minimal changes:
+
+| Local (Prototype)      | Google Cloud (Production)         |
+|------------------------|-----------------------------------|
+| Flask on localhost     | **Cloud Run** (serverless containers) |
+| SQLite (`students.db`) | **Firestore** or **Cloud SQL**    |
+| `index.html` (local)   | **Firebase Hosting** or **Cloud Storage + CDN** |
+| Manual server start    | Fully managed, auto-scaling       |
+
+### Changes Required for Migration:
+1. Replace `sqlite3` with Firestore SDK (`google-cloud-firestore`) or Cloud SQL connector
+2. Containerize the Flask app using Docker and deploy to **Cloud Run**
+3. Host `index.html` on **Firebase Hosting** for a public URL
+4. Use **Cloud Pub/Sub** for loose coupling with future services (e.g., email notifications)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript (Vanilla)
+- **Backend:** Python, Flask, Flask-CORS
+- **Database:** SQLite (local prototype)
+- **Cloud Target:** Google Cloud Platform (Cloud Run, Firestore, Firebase Hosting)
+
+---
+
+## 📸 Screenshots
+
+> Add screenshots of your running app here.
+
+---
+
+## 👤 Author
+
+**Your Name**  
+Second Semester Capstone Project — Google Cloud Digital Leader Course
