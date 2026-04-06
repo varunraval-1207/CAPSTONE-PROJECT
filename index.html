@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>College Event Registration</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      color: #fff;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #a0b4cc;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 540px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      color: #0f3460;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #e8f0fe;
+      padding-bottom: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #d0d7de;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #333;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #0f3460;
+    }
+
+    .row {
+      display: flex;
+      gap: 14px;
+    }
+
+    .row .form-group {
+      flex: 1;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #0f3460, #533483);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+
+    button[type="submit"]:hover { opacity: 0.9; }
+    button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .alert {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .alert.success { background: #e6f9f0; color: #1a7f4b; border: 1px solid #b6e9d0; }
+    .alert.error   { background: #fdecea; color: #b71c1c; border: 1px solid #f5c2c0; }
+
+    /* ── Registrations Table ── */
+    .table-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 32px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .table-card h2 {
+      font-size: 1.2rem;
+      color: #0f3460;
+      margin-bottom: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th {
+      background: #0f3460;
+      color: #fff;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #333;
+    }
+
+    tr:hover td { background: #f5f8ff; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #e8f0fe;
+      color: #0f3460;
+    }
+
+    #refreshBtn {
+      float: right;
+      background: none;
+      border: 1.5px solid #0f3460;
+      color: #0f3460;
+      padding: 6px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    #refreshBtn:hover { background: #0f3460; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎓 College Event Registration</h1>
+    <p>Register for Tech Fest, Cultural Events, Workshops &amp; more</p>
+  </header>
+
+  <!-- Registration Form -->
+  <div class="card">
+    <h2>📋 Student Registration</h2>
+    <form id="regForm">
+
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" placeholder="e.g. Varun Raval" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="e.g. Varun@college.edu" required />
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="e.g. 9876543210" />
+        </div>
+        <div class="form-group">
+          <label for="roll_number">Roll Number</label>
+          <input type="text" id="roll_number" placeholder="e.g. CS2023001" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="department">Department</label>
+          <select id="department">
+            <option value="">Select Department</option>
+            <option>Computer Science</option>
+            <option>Information Technology</option>
+            <option>Electronics</option>
+            <option>Mechanical</option>
+            <option>Civil</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="year">Year</label>
+          <select id="year">
+            <option value="">Select Year</option>
+            <option>First Year</option>
+            <option>Second Year</option>
+            <option>Third Year</option>
+            <option>Fourth Year</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="event">Event *</label>
+        <select id="event" required>
+          <option value="">Select an Event</option>
+          <option>Tech Fest</option>
+          <option>Cultural Event</option>
+          <option>Workshop - Web Development</option>
+          <option>Workshop - Cloud Computing</option>
+          <option>Sports Meet</option>
+          <option>Hackathon</option>
+        </select>
+      </div>
+
+      <button type="submit" id="submitBtn">Register Now</button>
+
+      <div class="alert" id="alertBox"></div>
+    </form>
+  </div>
+
+  <!-- Registrations Table -->
+  <div class="table-card">
+    <h2>📊 All Registrations <button id="refreshBtn" onclick="loadStudents()">↻ Refresh</button></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Roll No.</th>
+          <th>Department</th>
+          <th>Year</th>
+          <th>Event</th>
+          <th>Registered At</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable">
+        <tr><td colspan="8" style="text-align:center;color:#999;padding:20px;">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const API = "http://localhost:5000";
+
+    // ── Form submission ──
+    document.getElementById("regForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Registering...";
+
+      const payload = {
+        name:        document.getElementById("name").value.trim(),
+        email:       document.getElementById("email").value.trim(),
+        phone:       document.getElementById("phone").value.trim(),
+        roll_number: document.getElementById("roll_number").value.trim(),
+        department:  document.getElementById("department").value,
+        year:        document.getElementById("year").value,
+        event:       document.getElementById("event").value,
+      };
+
+      try {
+        const res  = await fetch(`${API}/register`, {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify(payload),
+        });
+        const data = await res.json();
+        showAlert(data.success, data.message);
+        if (data.success) {
+          e.target.reset();
+          loadStudents();
+        }
+      } catch {
+        showAlert(false, "Could not connect to server. Make sure the backend is running.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Register Now";
+      }
+    });
+
+    // ── Show alert ──
+    function showAlert(success, msg) {
+      const box = document.getElementById("alertBox");
+      box.className = `alert ${success ? "success" : "error"}`;
+      box.textContent = msg;
+      box.style.display = "block";
+      setTimeout(() => box.style.display = "none", 4000);
+    }
+
+    // ── Load students table ──
+    async function loadStudents() {
+      const tbody = document.getElementById("studentTable");
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#999;padding:20px;">Loading...</td></tr>`;
+      try {
+        const res  = await fetch(`${API}/students`);
+        const data = await res.json();
+        if (!data.length) {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#999;padding:20px;">No registrations yet.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = data.map((s, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${s.name}</td>
+            <td>${s.email}</td>
+            <td>${s.roll_number || "—"}</td>
+            <td>${s.department || "—"}</td>
+            <td>${s.year || "—"}</td>
+            <td><span class="badge">${s.event}</span></td>
+            <td>${new Date(s.registered_at).toLocaleString()}</td>
+          </tr>`).join("");
+      } catch {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#c00;padding:20px;">Failed to load data.</td></tr>`;
+      }
+    }
+
+    loadStudents();
+  </script>
+</body>
+</html>
